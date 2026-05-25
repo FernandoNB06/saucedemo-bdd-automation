@@ -14,3 +14,9 @@ Feature: Carrito de compras en SauceDemo
   Scenario: Agregar un producto al carrito
     When agrego el producto "Sauce Labs Backpack" al carrito
     Then el contador del carrito debería mostrar "1"
+
+  Scenario: Visualizar producto agregado en el carrito
+    When agrego el producto "Sauce Labs Backpack" al carrito
+    And abro el carrito de compras
+    Then debería ver el producto "Sauce Labs Backpack" en el carrito
+    And debería ver el precio "$29.99" en el carrito
