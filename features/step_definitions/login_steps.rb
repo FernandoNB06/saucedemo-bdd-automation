@@ -17,3 +17,7 @@ end
 Then("debería ver la página de productos") do
   expect(page).to have_content("Products")
 end
+
+Then("debería ver el mensaje {string}") do |mensaje|
+  expect(page).to have_content(mensaje)
+end
