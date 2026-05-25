@@ -21,3 +21,10 @@ Feature: Checkout en SauceDemo
     And debería ver el precio "$29.99" en el resumen
     When finalizo la compra
     Then debería ver el mensaje de confirmación "Thank you for your order!"
+
+
+  Scenario: Validar consistencia de totales en checkout
+    When inicio el checkout
+    And ingreso los datos del comprador "Fernando" "Nogales" "0000"
+    And continúo al resumen de compra
+    Then el resumen debería mostrar subtotal, tax y total consistentes
