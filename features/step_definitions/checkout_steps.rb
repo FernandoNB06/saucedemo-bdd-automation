@@ -1,15 +1,15 @@
 When("inicio el checkout") do
-  find(:xpath, "//button[@id='checkout']").click
+  find(:xpath, "/html/body/div/div/div/div[2]/div/div[2]/button[2]").click
 end
 
 When("ingreso los datos del comprador {string} {string} {string}") do |nombre, apellido, codigo_postal|
-  fill_in "first-name", with: nombre
-  fill_in "last-name", with: apellido
-  fill_in "postal-code", with: codigo_postal
+  find(:css, "#first-name").set(nombre)
+  find(:css, "#last-name").set(apellido)
+  find(:css, "#postal-code").set(codigo_postal)
 end
 
 When("continúo al resumen de compra") do
-  click_button "Continue"
+  find(:css, "#continue").click
 end
 
 Then("debería ver el producto {string} en el resumen") do |producto|
@@ -21,18 +21,18 @@ Then("debería ver el precio {string} en el resumen") do |precio|
 end
 
 When("finalizo la compra") do
-  find(:xpath, "//button[@id='finish']").click
+  find(:xpath, "/html/body/div/div/div/div[2]/div/div[2]/div[9]/button[2]").click
 end
 
 Then("debería ver el mensaje de confirmación {string}") do |mensaje|
-  expect(page).to have_content(mensaje)
+  expect(page).to have_css(".complete-header", text: mensaje)
 end
 
 Then("el resumen debería mostrar subtotal, tax y total consistentes") do
-  item_price_text = find(".inventory_item_price").text
-  subtotal_text = find(".summary_subtotal_label").text
-  tax_text = find(".summary_tax_label").text
-  total_text = find(".summary_total_label").text
+  item_price_text = find(:css, ".inventory_item_price").text
+  subtotal_text = find(:css, ".summary_subtotal_label").text
+  tax_text = find(:css, ".summary_tax_label").text
+  total_text = find(:css, ".summary_total_label").text
 
   item_price = item_price_text.gsub("$", "").to_f
   subtotal = subtotal_text.gsub("Item total: $", "").to_f

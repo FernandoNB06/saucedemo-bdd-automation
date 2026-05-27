@@ -7,6 +7,7 @@ Feature: Login en SauceDemo
   Background:
     Given que estoy en la página de login de SauceDemo
 
+  
   Scenario: Iniciar sesión con credenciales válidas
     When ingreso el usuario "standard_user"
     And ingreso la contraseña "secret_sauce"
