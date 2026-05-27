@@ -18,3 +18,16 @@ end
 Then("debería ver el precio {string} en el carrito") do |precio|
   expect(page).to have_css(".cart_item", text: precio)
 end
+
+When("remuevo el producto {string} desde el carrito") do |producto|
+  product_id = producto.downcase.gsub(" ", "-")
+  find(:css, "#remove-#{product_id}").click
+end
+
+Then("no debería ver el producto {string} en el carrito") do |producto|
+  expect(page).not_to have_css(".cart_item", text: producto)
+end
+
+When("continúo comprando") do
+  find(:xpath, "/html/body/div/div/div/div[2]/div/div[2]/button[1]").click
+end
