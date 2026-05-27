@@ -46,3 +46,15 @@ Feature: Checkout en SauceDemo
     And ingreso los datos del comprador "Fernando" "Nogales" ""
     And continúo al resumen de compra
     Then debería ver el error de checkout "Error: Postal Code is required"
+
+  Scenario: Cancelar checkout desde la pantalla de información
+    When inicio el checkout
+    And cancelo el checkout desde información
+    Then debería volver al carrito de compras
+
+  Scenario: Cancelar checkout desde el resumen de compra
+    When inicio el checkout
+    And ingreso los datos del comprador "Fernando" "Nogales" "0000"
+    And continúo al resumen de compra
+    And cancelo el checkout desde resumen
+    Then debería ver la página de productos

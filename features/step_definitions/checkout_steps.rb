@@ -49,3 +49,15 @@ end
 Then("debería ver el error de checkout {string}") do |mensaje|
   expect(page).to have_css("[data-test='error']", text: mensaje)
 end
+
+When("cancelo el checkout desde información") do
+  find(:css, "#cancel").click
+end
+
+Then("debería volver al carrito de compras") do
+  expect(page).to have_css(".title", text: "Your Cart")
+end
+
+When("cancelo el checkout desde resumen") do
+  find(:xpath, "/html/body/div/div/div/div[2]/div/div[2]/div[9]/button[1]").click
+end
