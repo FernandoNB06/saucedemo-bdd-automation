@@ -45,3 +45,7 @@ Then("el resumen debería mostrar subtotal, tax y total consistentes") do
   expect(subtotal).to eq(expected_subtotal)
   expect(total).to eq(expected_total)
 end
+
+Then("debería ver el error de checkout {string}") do |mensaje|
+  expect(page).to have_css("[data-test='error']", text: mensaje)
+end

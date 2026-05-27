@@ -28,3 +28,21 @@ Feature: Checkout en SauceDemo
     And ingreso los datos del comprador "Fernando" "Nogales" "0000"
     And continúo al resumen de compra
     Then el resumen debería mostrar subtotal, tax y total consistentes
+
+  Scenario: Validar nombre obligatorio en checkout
+    When inicio el checkout
+    And ingreso los datos del comprador "" "Nogales" "0000"
+    And continúo al resumen de compra
+    Then debería ver el error de checkout "Error: First Name is required"
+
+  Scenario: Validar apellido obligatorio en checkout
+    When inicio el checkout
+    And ingreso los datos del comprador "Fernando" "" "0000"
+    And continúo al resumen de compra
+    Then debería ver el error de checkout "Error: Last Name is required"
+
+  Scenario: Validar código postal obligatorio en checkout
+    When inicio el checkout
+    And ingreso los datos del comprador "Fernando" "Nogales" ""
+    And continúo al resumen de compra
+    Then debería ver el error de checkout "Error: Postal Code is required"
