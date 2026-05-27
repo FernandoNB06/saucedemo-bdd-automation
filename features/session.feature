@@ -15,3 +15,10 @@ Feature: Gestión de sesión en SauceDemo
     When abro el menú lateral
     And selecciono la opción logout
     Then debería volver a la pantalla de login
+
+  Scenario: Resetear estado de la aplicación
+    When agrego el producto "Sauce Labs Backpack" al carrito
+    Then el contador del carrito debería mostrar "1"
+    When abro el menú lateral
+    And selecciono la opción reset app state
+    Then el carrito debería quedar vacío

@@ -11,3 +11,11 @@ Then("debería volver a la pantalla de login") do
   expect(page).to have_css("#user-name")
   expect(page).to have_css("#password")
 end
+
+When("selecciono la opción reset app state") do
+  find(:xpath, "/html/body/div/div/div/div[1]/div[1]/div[1]/div/div[2]/div[1]/nav/a[4]").click
+end
+
+Then("el carrito debería quedar vacío") do
+  expect(page).not_to have_css(".shopping_cart_badge")
+end
