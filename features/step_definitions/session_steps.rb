@@ -19,3 +19,10 @@ end
 Then("el carrito debería quedar vacío") do
   expect(page).not_to have_css(".shopping_cart_badge")
 end
+
+Then("debería ver las opciones principales del menú lateral") do
+  expect(page).to have_css("#inventory_sidebar_link", text: "All Items")
+  expect(page).to have_css("#about_sidebar_link", text: "About")
+  expect(page).to have_css("#logout_sidebar_link", text: "Logout")
+  expect(page).to have_css("#reset_sidebar_link", text: "Reset App State")
+end
