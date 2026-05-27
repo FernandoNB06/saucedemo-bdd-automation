@@ -61,3 +61,11 @@ end
 When("cancelo el checkout desde resumen") do
   find(:xpath, "/html/body/div/div/div/div[2]/div/div[2]/div[9]/button[1]").click
 end
+
+When("avanzo al resumen de compra con datos válidos") do
+  find(:xpath, "/html/body/div/div/div/div[2]/div/div[2]/button[2]").click
+  find(:css, "#first-name").set("Fernando")
+  find(:css, "#last-name").set("Nogales")
+  find(:css, "#postal-code").set("0000")
+  find(:css, "#continue").click
+end

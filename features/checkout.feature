@@ -9,24 +9,21 @@ Feature: Checkout en SauceDemo
     When ingreso el usuario "standard_user"
     And ingreso la contraseña "secret_sauce"
     And hago clic en el botón de login
-    Then debería ver la página de productos
-    When agrego el producto "Sauce Labs Backpack" al carrito
+    And agrego el producto "Sauce Labs Backpack" al carrito
     And abro el carrito de compras
 
-  Scenario: Completar checkout básico con un producto
-    When inicio el checkout
-    And ingreso los datos del comprador "Fernando" "Nogales" "0000"
-    And continúo al resumen de compra
+  Scenario: Validar resumen de checkout con un producto
+    When avanzo al resumen de compra con datos válidos
     Then debería ver el producto "Sauce Labs Backpack" en el resumen
     And debería ver el precio "$29.99" en el resumen
-    When finalizo la compra
+
+  Scenario: Finalizar compra correctamente
+    When avanzo al resumen de compra con datos válidos
+    And finalizo la compra
     Then debería ver el mensaje de confirmación "Thank you for your order!"
 
-
   Scenario: Validar consistencia de totales en checkout
-    When inicio el checkout
-    And ingreso los datos del comprador "Fernando" "Nogales" "0000"
-    And continúo al resumen de compra
+    When avanzo al resumen de compra con datos válidos
     Then el resumen debería mostrar subtotal, tax y total consistentes
 
   Scenario: Validar nombre obligatorio en checkout
@@ -53,8 +50,6 @@ Feature: Checkout en SauceDemo
     Then debería volver al carrito de compras
 
   Scenario: Cancelar checkout desde el resumen de compra
-    When inicio el checkout
-    And ingreso los datos del comprador "Fernando" "Nogales" "0000"
-    And continúo al resumen de compra
+    When avanzo al resumen de compra con datos válidos
     And cancelo el checkout desde resumen
     Then debería ver la página de productos
