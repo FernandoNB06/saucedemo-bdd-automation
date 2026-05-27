@@ -16,3 +16,29 @@ Feature: Productos en SauceDemo
     And debería ver la descripción "carry.allTheThings() with the sleek, streamlined Sly Pack"
     And debería ver el precio "$29.99"
     And debería ver el botón para agregar "Sauce Labs Backpack" al carrito
+
+  Scenario: Validar lista completa de productos
+    Then debería ver los siguientes productos:
+      | producto                            |
+      | Sauce Labs Backpack                 |
+      | Sauce Labs Bike Light               |
+      | Sauce Labs Bolt T-Shirt             |
+      | Sauce Labs Fleece Jacket            |
+      | Sauce Labs Onesie                   |
+      | Test.allTheThings() T-Shirt (Red)   |
+
+  Scenario: Ordenar productos por nombre de A a Z
+    When selecciono el ordenamiento "Name (A to Z)"
+    Then el primer producto debería ser "Sauce Labs Backpack"
+
+  Scenario: Ordenar productos por nombre de Z a A
+    When selecciono el ordenamiento "Name (Z to A)"
+    Then el primer producto debería ser "Test.allTheThings() T-Shirt (Red)"
+
+  Scenario: Ordenar productos por precio de menor a mayor
+    When selecciono el ordenamiento "Price (low to high)"
+    Then el primer precio de producto debería ser "$7.99"
+
+  Scenario: Ordenar productos por precio de mayor a menor
+    When selecciono el ordenamiento "Price (high to low)"
+    Then el primer precio de producto debería ser "$49.99"
