@@ -31,3 +31,8 @@ end
 When("continúo comprando") do
   find(:xpath, "/html/body/div/div/div/div[2]/div/div[2]/button[1]").click
 end
+
+When("remuevo el producto {string} desde la página de productos") do |producto|
+  product_id = producto.downcase.gsub(" ", "-")
+  find(:css, "#remove-#{product_id}").click
+end

@@ -42,3 +42,9 @@ Feature: Productos en SauceDemo
   Scenario: Ordenar productos por precio de mayor a menor
     When selecciono el ordenamiento "Price (high to low)"
     Then el primer precio de producto debería ser "$49.99"
+   
+  Scenario: Visualizar detalle de un producto
+    When selecciono el producto "Sauce Labs Backpack"
+    Then debería ver el detalle del producto "Sauce Labs Backpack"
+    And debería ver la descripción del detalle "carry.allTheThings() with the sleek, streamlined Sly Pack"
+    And debería ver el precio del detalle "$29.99"

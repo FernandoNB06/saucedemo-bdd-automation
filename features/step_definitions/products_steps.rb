@@ -35,3 +35,19 @@ Then("el primer precio de producto debería ser {string}") do |precio_esperado|
   primer_precio = all(:css, ".inventory_item_price").first.text
   expect(primer_precio).to eq(precio_esperado)
 end
+
+When('selecciono el producto {string}') do |producto|
+  find('.inventory_item_name', text: producto).click
+end
+
+Then('debería ver el detalle del producto {string}') do |producto|
+  expect(page).to have_css('.inventory_details_name', text: producto)
+end
+
+Then('debería ver el precio del detalle {string}') do |precio|
+  expect(page).to have_css('.inventory_details_price', text: precio)
+end
+
+Then('debería ver la descripción del detalle {string}') do |descripcion|
+  expect(page).to have_css('.inventory_details_desc', text: descripcion)
+end
