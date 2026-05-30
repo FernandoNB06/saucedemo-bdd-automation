@@ -36,3 +36,12 @@ When("remuevo el producto {string} desde la página de productos") do |producto|
   product_id = producto.downcase.gsub(" ", "-")
   find(:css, "#remove-#{product_id}").click
 end
+
+When("remuevo el producto {string} desde el inventario") do |producto|
+  product_id = producto.downcase.gsub(" ", "-")
+  find(:css, "#remove-#{product_id}").click
+end
+
+Then("no debería existir contador del carrito") do
+  expect(page).not_to have_css(".shopping_cart_badge")
+end

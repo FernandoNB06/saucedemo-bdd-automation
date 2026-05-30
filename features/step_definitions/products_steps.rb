@@ -51,3 +51,16 @@ end
 Then('debería ver la descripción del detalle {string}') do |descripcion|
   expect(page).to have_css('.inventory_details_desc', text: descripcion)
 end
+
+When("agrego el producto desde el detalle") do
+  find(:css, "#add-to-cart").click
+end
+
+When("vuelvo al listado de productos") do
+  find(:css, "#back-to-products").click
+end
+
+Then("debería ver el botón {string} para el producto {string}") do |texto, producto|
+  product_id = producto.downcase.gsub(" ", "-")
+  expect(page).to have_css("#remove-#{product_id}", text: texto)
+end

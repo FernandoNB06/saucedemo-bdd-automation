@@ -48,3 +48,29 @@ Feature: Productos en SauceDemo
     Then debería ver el detalle del producto "Sauce Labs Backpack"
     And debería ver la descripción del detalle "carry.allTheThings() with the sleek, streamlined Sly Pack"
     And debería ver el precio del detalle "$29.99"
+   
+  Scenario: Agregar al carrito después de ordenar por precio menor a mayor
+    When selecciono el ordenamiento "Price (low to high)"
+    Then el primer precio de producto debería ser "$7.99"
+    When agrego el producto "Sauce Labs Onesie" al carrito
+    Then el contador del carrito debería mostrar "1"
+    
+  Scenario: Agregar producto al carrito desde el detalle
+    When selecciono el producto "Sauce Labs Backpack"
+    And agrego el producto desde el detalle
+    Then el contador del carrito debería mostrar "1"
+    
+  Scenario: Volver al listado desde el detalle del producto
+    When selecciono el producto "Sauce Labs Backpack"
+    And vuelvo al listado de productos
+    Then debería ver la página de productos
+    
+  Scenario: Cambiar botón a Remove después de agregar un producto
+    When agrego el producto "Sauce Labs Backpack" al carrito
+    Then debería ver el botón "Remove" para el producto "Sauce Labs Backpack"
+    
+  Scenario: Mantener producto al navegar al detalle y regresar
+    When agrego el producto "Sauce Labs Backpack" al carrito
+    And selecciono el producto "Sauce Labs Backpack"
+    And vuelvo al listado de productos
+    Then el contador del carrito debería mostrar "1"

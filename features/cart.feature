@@ -66,3 +66,9 @@ Feature: Carrito de compras en SauceDemo
     When abro el carrito de compras
     And remuevo el producto "Sauce Labs Backpack" desde el carrito
     Then el contador del carrito debería mostrar "1"
+    
+  Scenario: Remover producto desde el inventario
+    When agrego el producto "Sauce Labs Backpack" al carrito
+    Then el contador del carrito debería mostrar "1"
+    When remuevo el producto "Sauce Labs Backpack" desde el inventario
+    Then no debería existir contador del carrito
