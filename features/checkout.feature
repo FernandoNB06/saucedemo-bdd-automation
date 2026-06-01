@@ -17,6 +17,7 @@ Feature: Checkout en SauceDemo
     Then debería ver el producto "Sauce Labs Backpack" en el resumen
     And debería ver el precio "$29.99" en el resumen
 
+ @smoke
   Scenario: Finalizar compra correctamente
     When avanzo al resumen de compra con datos válidos
     And finalizo la compra

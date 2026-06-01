@@ -11,6 +11,7 @@ Feature: Carrito de compras en SauceDemo
     And hago clic en el botón de login
     Then debería ver la página de productos
 
+ @smoke
   Scenario: Agregar un producto al carrito
     When agrego el producto "Sauce Labs Backpack" al carrito
     Then el contador del carrito debería mostrar "1"

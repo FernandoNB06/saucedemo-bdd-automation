@@ -11,6 +11,7 @@ Feature: Gestión de sesión en SauceDemo
     And hago clic en el botón de login
     Then debería ver la página de productos
 
+ @smoke
   Scenario: Cerrar sesión correctamente
     When abro el menú lateral
     And selecciono la opción logout

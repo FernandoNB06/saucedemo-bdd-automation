@@ -10,6 +10,7 @@ Feature: Productos en SauceDemo
     And ingreso la contraseña "secret_sauce"
     And hago clic en el botón de login
 
+ @smoke
   Scenario: Validar información principal de un producto
     Then debería ver la página de productos
     And debería ver el producto "Sauce Labs Backpack"
