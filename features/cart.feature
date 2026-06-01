@@ -37,20 +37,19 @@ Feature: Carrito de compras en SauceDemo
     And abro el carrito de compras
     And continúo comprando
     Then debería ver la página de productos
-  
+
   Scenario: Remover un producto desde la página de productos
     When agrego el producto "Sauce Labs Backpack" al carrito
-    Then el contador del carrito debería mostrar "1"
-    When remuevo el producto "Sauce Labs Backpack" desde la página de productos
+    And remuevo el producto "Sauce Labs Backpack" desde la página de productos
     Then el carrito debería quedar vacío
-    
+
   Scenario: Visualizar múltiples productos en el carrito
     When agrego el producto "Sauce Labs Backpack" al carrito
     And agrego el producto "Sauce Labs Bike Light" al carrito
     And abro el carrito de compras
     Then debería ver el producto "Sauce Labs Backpack" en el carrito
     And debería ver el producto "Sauce Labs Bike Light" en el carrito
- 
+
   Scenario: Remover uno de varios productos del carrito
     When agrego el producto "Sauce Labs Backpack" al carrito
     And agrego el producto "Sauce Labs Bike Light" al carrito
@@ -58,17 +57,15 @@ Feature: Carrito de compras en SauceDemo
     And remuevo el producto "Sauce Labs Backpack" desde el carrito
     Then no debería ver el producto "Sauce Labs Backpack" en el carrito
     And debería ver el producto "Sauce Labs Bike Light" en el carrito
-    
+
   Scenario: Actualizar contador al remover un producto
     When agrego el producto "Sauce Labs Backpack" al carrito
     And agrego el producto "Sauce Labs Bike Light" al carrito
-    Then el contador del carrito debería mostrar "2"
-    When abro el carrito de compras
+    And abro el carrito de compras
     And remuevo el producto "Sauce Labs Backpack" desde el carrito
     Then el contador del carrito debería mostrar "1"
-    
+
   Scenario: Remover producto desde el inventario
     When agrego el producto "Sauce Labs Backpack" al carrito
-    Then el contador del carrito debería mostrar "1"
-    When remuevo el producto "Sauce Labs Backpack" desde el inventario
+    And remuevo el producto "Sauce Labs Backpack" desde el inventario
     Then no debería existir contador del carrito

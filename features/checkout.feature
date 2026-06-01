@@ -53,17 +53,23 @@ Feature: Checkout en SauceDemo
     When avanzo al resumen de compra con datos válidos
     And cancelo el checkout desde resumen
     Then debería ver la página de productos
-    
-  Scenario: Finalizar compra con múltiples productos
+
+  Scenario: Validar resumen de checkout con múltiples productos
     When continúo comprando
     And agrego el producto "Sauce Labs Bike Light" al carrito
     And abro el carrito de compras
     And avanzo al resumen de compra con datos válidos
     Then debería ver el producto "Sauce Labs Backpack" en el resumen
     And debería ver el producto "Sauce Labs Bike Light" en el resumen
-    When finalizo la compra
+
+  Scenario: Finalizar compra con múltiples productos
+    When continúo comprando
+    And agrego el producto "Sauce Labs Bike Light" al carrito
+    And abro el carrito de compras
+    And avanzo al resumen de compra con datos válidos
+    And finalizo la compra
     Then debería ver el mensaje de confirmación "Thank you for your order!"
-    
+
   Scenario: Validar checkout con todos los campos vacíos
     When inicio el checkout
     And ingreso los datos del comprador "" "" ""
