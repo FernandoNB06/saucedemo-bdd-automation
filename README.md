@@ -8,11 +8,13 @@ La aplicación bajo prueba es:
 
 https://www.saucedemo.com/
 
-SauceDemo es una aplicación web de ejemplo que simula un flujo de compra en línea. Permite validar funcionalidades como inicio de sesión, visualización de productos, carrito de compras y checkout.
+SauceDemo es una aplicación web de ejemplo que simula un flujo de compra en línea. Permite validar funcionalidades como inicio de sesión, visualización de productos, carrito de compras, checkout y gestión de sesión.
 
 ## Objetivo del proyecto
 
 El objetivo del proyecto es construir un framework automatizado que permita ejecutar pruebas Smoke Test sobre el flujo principal de SauceDemo, validando que las funcionalidades críticas de la aplicación estén disponibles y funcionen correctamente.
+
+El framework permite ejecutar escenarios automatizados escritos en lenguaje Gherkin, siguiendo el enfoque BDD para facilitar la comprensión de las pruebas desde una perspectiva funcional.
 
 ## Tecnologías utilizadas
 
@@ -43,6 +45,13 @@ Ejemplo de estructura utilizada:
         And hago clic en el botón de login
         Then debería ver la página de productos
 
+En los archivos `.feature` se aplican buenas prácticas como:
+
+- Uso de `Background` para preparar estados comunes.
+- Uso de `Scenario Outline` para probar datos similares.
+- Uso de tablas Gherkin para validar listas de información.
+- Escenarios con flujo claro, evitando secuencias desordenadas como `When → Then → When → Then`.
+
 ## Criterios de selección del Smoke Test
 
 Los escenarios automatizados fueron seleccionados tomando en cuenta el flujo mínimo crítico de la aplicación.
@@ -61,8 +70,16 @@ Con base en estos criterios, se seleccionaron los siguientes módulos:
 - Productos
 - Carrito de compras
 - Checkout
+- Gestión de sesión
 
 ## Escenarios automatizados
+
+El proyecto cuenta actualmente con **42 escenarios automatizados**, todos ejecutados correctamente mediante Cucumber.
+
+Resultado final de ejecución:
+
+    42 scenarios (42 passed)
+    337 steps (337 passed)
 
 ### Login
 
@@ -73,10 +90,12 @@ Archivo:
 Cubre:
 
 - Inicio de sesión con credenciales válidas.
-- Inicio de sesión con usuario bloqueado.
-- Inicio de sesión con usuario inexistente.
-- Uso de Background para evitar repetir el paso de navegación.
-- Uso de Scenario Outline para validar credenciales no válidas mediante una tabla de Examples.
+- Validación de usuario bloqueado.
+- Validación de usuario inexistente.
+- Validación de usuario vacío.
+- Validación de contraseña vacía.
+- Uso de `Background` para evitar repetir la navegación inicial.
+- Uso de `Scenario Outline` con tabla de `Examples` para credenciales inválidas.
 
 ### Productos
 
@@ -87,8 +106,17 @@ Archivo:
 Cubre:
 
 - Validación de la página Products.
-- Validación del producto Sauce Labs Backpack.
 - Validación de nombre, descripción, precio y botón Add to cart.
+- Validación de lista completa de productos mediante tabla Gherkin.
+- Ordenamiento por nombre de A a Z.
+- Ordenamiento por nombre de Z a A.
+- Ordenamiento por precio de menor a mayor.
+- Ordenamiento por precio de mayor a menor.
+- Visualización del detalle de un producto.
+- Agregar producto al carrito desde el detalle.
+- Volver al listado desde el detalle.
+- Validar cambio del botón Add to cart a Remove.
+- Mantener producto agregado al navegar entre listado y detalle.
 
 ### Carrito
 
@@ -99,10 +127,17 @@ Archivo:
 Cubre:
 
 - Agregar un producto al carrito.
-- Validar el contador del carrito.
+- Agregar múltiples productos al carrito.
+- Validar contador del carrito.
 - Abrir el carrito de compras.
-- Verificar que el producto agregado aparezca en el carrito.
-- Verificar que el precio del producto aparezca en el carrito.
+- Verificar productos agregados en el carrito.
+- Verificar precios en el carrito.
+- Remover producto desde el carrito.
+- Remover producto desde la página de productos.
+- Remover producto desde el inventario.
+- Remover uno de varios productos.
+- Validar actualización del contador al remover productos.
+- Continuar comprando desde el carrito.
 
 ### Checkout
 
@@ -118,6 +153,28 @@ Cubre:
 - Validación de producto y precio en el resumen.
 - Finalización de compra.
 - Validación del mensaje de confirmación.
+- Validación de subtotal, tax y total.
+- Validación de campos obligatorios: nombre, apellido y código postal.
+- Validación de checkout con todos los campos vacíos.
+- Cancelación desde la pantalla de información.
+- Cancelación desde el resumen de compra.
+- Checkout con múltiples productos.
+- Validación del resumen con múltiples productos.
+
+### Gestión de sesión
+
+Archivo:
+
+    features/session.feature
+
+Cubre:
+
+- Cierre de sesión.
+- Retorno a la pantalla de login.
+- Reset App State.
+- Validación de limpieza del carrito.
+- Validación de opciones principales del menú lateral.
+- Agregar producto después de resetear el estado de la aplicación.
 
 ## Estructura del proyecto
 
@@ -128,14 +185,18 @@ Cubre:
     │   ├── products.feature
     │   ├── cart.feature
     │   ├── checkout.feature
+    │   ├── session.feature
     │   ├── step_definitions/
     │   │   ├── login_steps.rb
     │   │   ├── products_steps.rb
     │   │   ├── cart_steps.rb
-    │   │   └── checkout_steps.rb
+    │   │   ├── checkout_steps.rb
+    │   │   └── session_steps.rb
     │   └── support/
     │       ├── env.rb
     │       └── hooks.rb
+    ├── reports/
+    │   └── reporte.html
     └── screenshots/
 
 ## Archivos principales
@@ -151,6 +212,7 @@ Incluye:
 - Configuración del navegador Chrome.
 - Preferencias para reducir avisos externos del navegador.
 - Tiempo máximo de espera para encontrar elementos.
+- Configuración del driver utilizado por Capybara.
 
 ### hooks.rb
 
@@ -161,32 +223,32 @@ Se utiliza:
 - `Before` para limpiar la sesión antes de cada escenario.
 - `After` para guardar captura de pantalla si un escenario falla.
 
+Esto permite que los escenarios sean más independientes y que se genere evidencia cuando una prueba falla.
+
 ## Localizadores utilizados
 
-En el proyecto se utilizan diferentes formas de localización de elementos.
-
-### Localizadores de Capybara
-
-Ejemplo:
-
-    fill_in "user-name", with: usuario
-    click_button "Login"
+En el proyecto se utilizan diferentes formas de localización de elementos, principalmente selectores CSS y XPath.
 
 ### Selectores CSS
 
+Se utilizan para elementos con identificadores, clases o atributos estables.
+
 Ejemplo:
 
-    find("#add-to-cart-sauce-labs-backpack").click
-    expect(page).to have_css(".shopping_cart_badge", text: "1")
+    find(:css, "#user-name").set(usuario)
+    find(:css, ".shopping_cart_badge")
+    expect(page).to have_css(".title", text: "Products")
 
 ### XPath
 
+Se utiliza en acciones puntuales donde se requiere ubicar elementos específicos dentro de la estructura de la página.
+
 Ejemplo:
 
-    find(:xpath, "//button[@id='checkout']").click
-    find(:xpath, "//button[@id='finish']").click
+    find(:xpath, "/html/body/div/div/div[2]/div[1]/div/div/form/input").click
+    find(:xpath, "/html/body/div/div/div/div[2]/div/div[2]/button[2]").click
 
-El uso combinado de localizadores permite aplicar diferentes estrategias de identificación de elementos dentro de la interfaz.
+El uso combinado de CSS y XPath permite aplicar diferentes estrategias de identificación de elementos dentro de la interfaz.
 
 ## Comandos de ejecución
 
@@ -204,27 +266,54 @@ Para ejecutar un feature específico:
 
     cucumber features/checkout.feature --publish-quiet
 
+    cucumber features/session.feature --publish-quiet
+
 ## Reporte HTML
 
 Para generar un reporte HTML local:
 
-    mkdir reports
     cucumber features --format html --out reports/reporte.html --publish-quiet
 
 El reporte se genera en:
 
     reports/reporte.html
 
+Para abrir el reporte en Windows:
+
+    start reports\reporte.html
+
+## Gestión del sprint
+
+El proyecto fue gestionado mediante Trello, organizando las tareas en tarjetas relacionadas con:
+
+- Configuración del ambiente.
+- Creación del framework BDD.
+- Automatización de escenarios por módulo.
+- Implementación de hooks.
+- Refactorización de escenarios.
+- Generación del reporte HTML.
+- Actualización de documentación.
+
+El repositorio GitHub fue utilizado para el control de versiones y registro de commits del avance del proyecto.
+
 ## Estado actual
 
-El framework cuenta con escenarios automatizados para el flujo principal de Smoke Test:
+El framework cuenta con **42 escenarios automatizados**, cubriendo el flujo principal de Smoke Test de SauceDemo:
 
 - Login
 - Productos
-- Carrito
+- Carrito de compras
 - Checkout
+- Gestión de sesión
 
-Las pruebas se ejecutan con Cucumber y validan comportamiento visible desde la perspectiva del usuario final.
+La última ejecución finalizó correctamente con:
+
+    42 scenarios (42 passed)
+    337 steps (337 passed)
+
+Además, se generó un reporte HTML local en:
+
+    reports/reporte.html
 
 ## Repositorio
 
