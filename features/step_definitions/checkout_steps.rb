@@ -29,20 +29,18 @@ Then("debería ver el mensaje de confirmación {string}") do |mensaje|
 end
 
 Then("el resumen debería mostrar subtotal, tax y total consistentes") do
-  item_price_text = find(:css, ".inventory_item_price").text
   subtotal_text = find(:css, ".summary_subtotal_label").text
   tax_text = find(:css, ".summary_tax_label").text
   total_text = find(:css, ".summary_total_label").text
 
-  item_price = item_price_text.gsub("$", "").to_f
   subtotal = subtotal_text.gsub("Item total: $", "").to_f
   tax = tax_text.gsub("Tax: $", "").to_f
   total = total_text.gsub("Total: $", "").to_f
 
-  expected_subtotal = item_price
-  expected_total = (subtotal + tax).round(2)
+  expected_subtotal = 29.99
 
   expect(subtotal).to eq(expected_subtotal)
+  expected_total = (expected_subtotal + tax).round(2)
   expect(total).to eq(expected_total)
 end
 

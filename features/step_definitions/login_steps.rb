@@ -16,8 +16,20 @@ end
 
 Then("debería ver la página de productos") do
   expect(page).to have_css(".title", text: "Products")
+  expect(page).to have_css(".inventory_list")
+  expect(page).to have_css(".inventory_item")
 end
 
 Then("debería ver el mensaje {string}") do |mensaje|
   expect(page).to have_css("[data-test='error']", text: mensaje)
+end
+
+Given("que estoy autenticado como {string}") do |usuario|
+  visit "/"
+
+  find(:css, "#user-name").set(usuario)
+  find(:css, "#password").set("secret_sauce")
+  find(:xpath, "/html/body/div/div/div[2]/div[1]/div/div/form/input").click
+
+  expect(page).to have_css(".title", text: "Products")
 end

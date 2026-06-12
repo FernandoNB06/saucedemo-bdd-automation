@@ -5,11 +5,7 @@ Feature: Carrito de compras en SauceDemo
   Para iniciar el flujo de compra
 
   Background:
-    Given que estoy en la página de login de SauceDemo
-    When ingreso el usuario "standard_user"
-    And ingreso la contraseña "secret_sauce"
-    And hago clic en el botón de login
-    Then debería ver la página de productos
+    Given que estoy autenticado como "standard_user"
 
  @smoke
   Scenario: Agregar un producto al carrito
@@ -26,6 +22,10 @@ Feature: Carrito de compras en SauceDemo
     When agrego el producto "Sauce Labs Backpack" al carrito
     And agrego el producto "Sauce Labs Bike Light" al carrito
     Then el contador del carrito debería mostrar "2"
+    
+    When abro el carrito de compras
+    Then debería ver el producto "Sauce Labs Backpack" en el carrito
+    And debería ver el producto "Sauce Labs Bike Light" en el carrito
 
   Scenario: Remover producto desde el carrito
     When agrego el producto "Sauce Labs Backpack" al carrito
