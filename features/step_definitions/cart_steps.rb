@@ -45,3 +45,11 @@ end
 Then("no debería existir contador del carrito") do
   expect(page).not_to have_css(".shopping_cart_badge")
 end
+Then("debería ver el título {string} en la página de productos") do |titulo|
+  expect(page).to have_css(".title", text: titulo)
+end
+
+Then("debería ver la lista de productos disponibles") do
+  expect(page).to have_css(".inventory_list")
+  expect(page).to have_css(".inventory_item")
+end

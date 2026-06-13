@@ -7,7 +7,7 @@ Feature: Carrito de compras en SauceDemo
   Background:
     Given que estoy autenticado como "standard_user"
 
- @smoke
+  @smoke
   Scenario: Agregar un producto al carrito
     When agrego el producto "Sauce Labs Backpack" al carrito
     Then el contador del carrito debería mostrar "1"
@@ -22,7 +22,6 @@ Feature: Carrito de compras en SauceDemo
     When agrego el producto "Sauce Labs Backpack" al carrito
     And agrego el producto "Sauce Labs Bike Light" al carrito
     Then el contador del carrito debería mostrar "2"
-    
     When abro el carrito de compras
     Then debería ver el producto "Sauce Labs Backpack" en el carrito
     And debería ver el producto "Sauce Labs Bike Light" en el carrito
@@ -37,7 +36,8 @@ Feature: Carrito de compras en SauceDemo
     When agrego el producto "Sauce Labs Backpack" al carrito
     And abro el carrito de compras
     And continúo comprando
-    Then debería ver la página de productos
+    Then debería ver el título "Products" en la página de productos
+    And debería ver la lista de productos disponibles
 
   Scenario: Remover un producto desde la página de productos
     When agrego el producto "Sauce Labs Backpack" al carrito
