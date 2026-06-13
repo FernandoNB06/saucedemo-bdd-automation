@@ -7,9 +7,14 @@ When("selecciono la opción logout") do
 end
 
 Then("debería volver a la pantalla de login") do
-  expect(page).to have_css("#login-button")
-  expect(page).to have_css("#user-name")
-  expect(page).to have_css("#password")
+  expect(page).to have_current_path("/", ignore_query: true)
+
+  expect(page).to have_css("#login-button", visible: true)
+  expect(page).to have_css("#user-name", visible: true)
+  expect(page).to have_css("#password", visible: true)
+
+  expect(page).not_to have_css(".inventory_list")
+  expect(page).not_to have_css(".shopping_cart_link")
 end
 
 When("selecciono la opción reset app state") do
