@@ -60,10 +60,12 @@ Feature: Productos en SauceDemo
     And agrego el producto desde el detalle
     Then el contador del carrito debería mostrar "1"
 
-  Scenario: Volver al listado desde el detalle del producto
-    When selecciono el producto "Sauce Labs Backpack"
-    And vuelvo al listado de productos
-    Then debería ver la página de productos
+Scenario: Volver al listado desde el detalle del producto
+  When selecciono el producto "Sauce Labs Backpack"
+  And vuelvo al listado de productos
+  Then debería ver el título "Products" en la página de productos
+  And debería ver la lista de productos disponibles
+  And debería ver el producto "Sauce Labs Backpack"
 
   Scenario: Cambiar botón a Remove después de agregar un producto
     When agrego el producto "Sauce Labs Backpack" al carrito
