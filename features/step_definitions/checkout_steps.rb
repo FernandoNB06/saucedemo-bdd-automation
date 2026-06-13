@@ -28,20 +28,25 @@ Then("debería ver el mensaje de confirmación {string}") do |mensaje|
   expect(page).to have_css(".complete-header", text: mensaje)
 end
 
-Then("el resumen debería mostrar subtotal, tax y total consistentes") do
+Then("el resumen debería mostrar subtotal {string}, tax {string} y total {string}") do |subtotal_esperado, tax_esperado, total_esperado|
   subtotal_text = find(:css, ".summary_subtotal_label").text
   tax_text = find(:css, ".summary_tax_label").text
   total_text = find(:css, ".summary_total_label").text
 
-  subtotal = subtotal_text.gsub("Item total: $", "").to_f
-  tax = tax_text.gsub("Tax: $", "").to_f
-  total = total_text.gsub("Total: $", "").to_f
+  subtotal_ui = subtotal_text.gsub("Item total: $", "").to_f
+  tax_ui = tax_text.gsub("Tax: $", "").to_f
+  total_ui = total_text.gsub("Total: $", "").to_f
 
-  expected_subtotal = 29.99
+  subtotal = subtotal_esperado.gsub("$", "").to_f
+  tax = tax_esperado.gsub("$", "").to_f
+  total = total_esperado.gsub("$", "").to_f
 
-  expect(subtotal).to eq(expected_subtotal)
-  expected_total = (expected_subtotal + tax).round(2)
-  expect(total).to eq(expected_total)
+  expect(subtotal_ui).to eq(subtotal)
+  expect(tax_ui).to eq(tax)
+  expect(total_ui).to eq(total)
+
+  total_calculado = (subtotal + tax).round(2)
+  expect(total_ui).to eq(total_calculado)
 end
 
 Then("debería ver el error de checkout {string}") do |mensaje|
