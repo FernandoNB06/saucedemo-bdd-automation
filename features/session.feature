@@ -5,11 +5,7 @@ Feature: Gestión de sesión en SauceDemo
   Para proteger el acceso a mi cuenta después de usar la aplicación
 
   Background:
-    Given que estoy en la página de login de SauceDemo
-    When ingreso el usuario "standard_user"
-    And ingreso la contraseña "secret_sauce"
-    And hago clic en el botón de login
-    Then debería ver la página de productos
+    Given que estoy autenticado como "standard_user"
 
  @smoke
   Scenario: Cerrar sesión correctamente
